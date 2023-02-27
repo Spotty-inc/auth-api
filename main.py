@@ -63,5 +63,19 @@ def sign_in_user():
     response = c.start_sign_in(username=username,password=password)
     return jsonify(response)
 
+@app.route('/reset', methods=['POST'])
+def send_password_reset_email():
+    username = request.args['username']
+    response = c.reset_password(username)
+    return jsonify(response)
+
+@app.route('/reset/confirm', methods=['POST'])
+def confirm_password_reset():
+    username = request.args['username']
+    password = request.args['password']
+    confirmation_code = request.args['confirmation_code']
+    response = c.confirm_reset_password(username,password,confirmation_code)
+    return jsonify(response)
+
 if __name__ == '__main__':
     app.run()
