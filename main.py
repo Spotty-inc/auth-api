@@ -16,6 +16,10 @@ client = boto3.client('cognito-idp', region_name=os.getenv('AWS_REGION_NAME'), a
 c = CognitoIdentityProviderWrapper(cognito_idp_client=client, user_pool_id=os.getenv('COGNITO_POOL_ID'),
                                     client_id=os.getenv('APP_CLIENT_ID'), client_secret=os.getenv('APP_CLIENT_SECRET'))
 
+@app.route('/health', methods=['GET'])
+def health_check():
+    return
+
 @app.route('/users', methods=['GET'])
 def list_users():
     users = c.list_users()
