@@ -23,7 +23,7 @@ def list_users():
     return jsonify(users)
 
 
-@app.route('/user/<username>')
+@app.route('/user/<username>', methods=['GET'])
 def get_user(username):
     user = c.get_user(username)
     return jsonify(user)
