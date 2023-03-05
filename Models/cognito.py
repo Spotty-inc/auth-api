@@ -308,4 +308,4 @@ class CognitoIdentityProviderWrapper:
             )
             raise
         else:
-            return "success"
+            return response
