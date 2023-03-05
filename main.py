@@ -1,5 +1,4 @@
 import os
-import logging
 import boto3
 from flask import Flask, jsonify, request
 from dotenv import load_dotenv
@@ -9,12 +8,14 @@ load_dotenv()
 
 app = Flask(__name__)
 
-logger = logging.getLogger(__name__)
-
 client = boto3.client('cognito-idp', region_name=os.getenv('AWS_REGION_NAME'), aws_access_key_id=os.getenv('AWS_ACCESS_KEY'),
                         aws_secret_access_key=os.getenv('AWS_SECRET_KEY'))
 c = CognitoIdentityProviderWrapper(cognito_idp_client=client, user_pool_id=os.getenv('COGNITO_POOL_ID'),
                                     client_id=os.getenv('APP_CLIENT_ID'), client_secret=os.getenv('APP_CLIENT_SECRET'))
+
+@app.route('/health')
+def health_check():
+    return jsonify()
 
 @app.route('/users', methods=['GET'])
 def list_users():
